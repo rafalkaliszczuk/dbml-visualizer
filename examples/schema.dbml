@@ -1,0 +1,50 @@
+Table users {
+  id integer [pk, increment, note: 'Auto-incremented primary key']
+  username varchar(50) [not null, unique, note: 'Unique login handle']
+  email varchar(100) [not null, unique, note: 'Contact and login email']
+  role varchar(20) [not null, default: 'user', note: 'user | admin | moderator']
+  created_at timestamp [default: `now()`, note: 'Account creation time']
+
+  Note: 'Registered application users'
+}
+
+Table posts {
+  id integer [pk, increment]
+  title varchar(200) [not null, note: 'Post headline']
+  content text [note: 'Full post body in markdown']
+  user_id integer [not null, note: 'Author reference']
+  status varchar(20) [default: 'draft', note: 'draft | published | archived']
+  created_at timestamp [default: `now()`]
+  published_at timestamp [note: 'Set when status changes to published']
+
+  Note: 'Blog posts authored by users'
+}
+
+Table comments {
+  id integer [pk, increment]
+  content text [not null, note: 'Comment body text']
+  post_id integer [not null, note: 'Parent post reference']
+  user_id integer [not null, note: 'Commenter reference']
+  created_at timestamp [default: `now()`]
+}
+
+Table tags {
+  id integer [pk, increment]
+  name varchar(50) [not null, unique, note: 'Tag label shown to users']
+  color varchar(7) [note: 'Hex color code, e.g. #ff5733']
+}
+
+Table post_tags {
+  post_id integer [note: 'References posts.id']
+  tag_id integer [note: 'References tags.id']
+
+  indexes {
+    (post_id, tag_id) [pk]
+  }
+}
+
+Ref: posts.user_id > users.id
+Ref: comments.post_id > posts.id
+Ref: comments.user_id > users.id
+Ref: post_tags.post_id > posts.id
+Ref: post_tags.tag_id > tags.id

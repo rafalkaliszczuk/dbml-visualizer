@@ -1,0 +1,16 @@
+# Local preview — no Node.js required
+#
+# Usage:
+#   docker compose up
+#   open http://localhost:8080
+#
+# Place your schema.dbml file next to this docker-compose.yml,
+# or update the volume path below.
+
+services:
+  dbml-visualizer:
+    image: rkali77/dbml-visualizer:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./schema.dbml:/usr/share/nginx/html/schema.dbml:ro

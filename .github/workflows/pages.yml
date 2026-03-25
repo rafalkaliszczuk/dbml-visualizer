@@ -1,0 +1,38 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build demo
+        run: npm run build
+        env:
+          # Use the bundled sample schema for the live demo
+          VITE_DBML_FILE: ./examples/schema.dbml
+          # Adjust if your repo is not named dbml-visualizer
+          VITE_BASE_PATH: /dbml-visualizer/
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
