@@ -8,21 +8,21 @@ An interactive, browser-based entity-relationship diagram viewer for [DBML](http
 
 ## Features
 
-- Interactive ERD canvas with auto-layout (dagre LR)
-- Left panel: searchable table list with field descriptions and notes rendered as Markdown
-- Click a table → field detail view with types, constraints, default values
-- Edges routed to exact source/target fields
+- Interactive ERD canvas with auto-layout
+- Searchable table list with field descriptions rendered as Markdown
+- Click a table to inspect fields, types, constraints, and default values
+- Edges routed to exact source and target fields
 - Highlighted relationships on table selection
-- Dark theme only
-- `localStorage` persistence — survives page refresh
+- `localStorage` persistence — diagram survives page refresh
+- Dark theme
 
 ---
 
-## Usage options
+## Usage
 
-### 1. Docker (recommended for local preview)
+### Docker
 
-No Node.js required. Mount your DBML file and open the browser:
+The quickest way to visualize a local schema — no Node.js required:
 
 ```bash
 docker run -p 8080:80 \
@@ -30,7 +30,7 @@ docker run -p 8080:80 \
   rkali77/dbml-visualizer:latest
 ```
 
-Then open **http://localhost:8080**.
+Open **http://localhost:8080**. The diagram loads automatically from the mounted file.
 
 Or with docker-compose (copy [`examples/docker-compose.yml`](examples/docker-compose.yml) next to your schema):
 
@@ -40,9 +40,9 @@ docker compose up
 
 ---
 
-### 2. GitLab Pages (CI/CD in your repo)
+### GitLab Pages
 
-Copy [`examples/gitlab-pages.yml`](examples/gitlab-pages.yml) to your repo as `.gitlab-ci.yml` and adjust the path to your DBML file:
+Copy [`examples/gitlab-pages.yml`](examples/gitlab-pages.yml) to your repo as `.gitlab-ci.yml`:
 
 ```yaml
 pages:
@@ -64,14 +64,13 @@ The diagram will be published at `https://<namespace>.gitlab.io/<project-name>/`
 
 ---
 
-### 3. GitHub Actions Pages
+### GitHub Actions Pages
 
-See [`examples/`](examples/) for a ready-to-use GitHub Actions workflow.
-The live demo for this repo is deployed this way via [`.github/workflows/pages.yml`](.github/workflows/pages.yml).
+See [`.github/workflows/pages.yml`](.github/workflows/pages.yml) for the workflow used to deploy the live demo.
 
 ---
 
-### 4. Manual build with your own schema
+### Manual build
 
 ```bash
 npm install
@@ -81,27 +80,27 @@ VITE_DBML_FILE=./schema.dbml npm run build
 
 ---
 
-### 5. Local development
+### Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open **http://localhost:5173** — use the upload/paste UI to load any DBML schema.
+Open **http://localhost:5173** and use the upload or paste UI to load any DBML schema.
 
 ---
 
 ## Configuration
 
-| Environment variable | Default | Description |
+| Variable | Default | Description |
 |---|---|---|
-| `VITE_DBML_FILE` | *(none)* | Path to a `.dbml` file to embed at build time. When set, the app skips the upload UI and shows the diagram directly. |
+| `VITE_DBML_FILE` | *(none)* | Path to a `.dbml` file to embed at build time. When set, the app skips the upload UI and renders the diagram directly. |
 | `VITE_BASE_PATH` | `/` | Base URL path. Set to `/<repo-name>/` for GitHub/GitLab Pages sub-path deployments. |
 
 ---
 
-## DBML field notes
+## DBML notes
 
 Field and table notes are rendered as Markdown in the detail panel:
 
@@ -116,20 +115,9 @@ Table orders {
 }
 ```
 
+Full DBML reference: https://dbml.dbdiagram.io/docs/
+
 ---
-
-## Docker Hub setup (for contributors / forks)
-
-The Docker image is built and pushed automatically on every push to `main` and on version tags (`v*.*.*`) via [`.github/workflows/docker.yml`](.github/workflows/docker.yml).
-
-Add these secrets to your GitHub repo settings:
-
-| Secret | Value |
-|---|---|
-| `DOCKERHUB_USERNAME` | Your Docker Hub username |
-| `DOCKERHUB_TOKEN` | Docker Hub Access Token (Account Settings → Security) |
-
---- 
 
 ## License
 
