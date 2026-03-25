@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import { createPortal } from 'react-dom';
 import {
   ReactFlow,
@@ -204,7 +205,7 @@ function ConfirmDialog({
 
 function MarkdownNote({ text, style }: { text: string; style?: React.CSSProperties }) {
   const html = useMemo(
-    () => marked.parse(text, { async: false }) as string,
+    () => DOMPurify.sanitize(marked.parse(text, { async: false }) as string),
     [text]
   );
   return (

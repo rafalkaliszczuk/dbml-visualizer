@@ -13,9 +13,8 @@ pages:
     - apk add --no-cache git
     - git clone --depth=1 https://github.com/rafalkaliszczuk/dbml-visualizer.git /tmp/viz
     - npm --prefix /tmp/viz ci --prefer-offline
-    - VITE_DBML_FILE="$CI_PROJECT_DIR/schema.dbml"
-      VITE_BASE_PATH="/$CI_PROJECT_NAME/"
-      npm --prefix /tmp/viz run build
+    - export VITE_DBML_FILE="$CI_PROJECT_DIR/schema.dbml" VITE_BASE_PATH="/$CI_PROJECT_NAME/"
+    - npm --prefix /tmp/viz run build
     - cp -r /tmp/viz/dist public
   artifacts:
     paths:

@@ -11,7 +11,9 @@
   "dependencies": {
     "@dagrejs/dagre": "^1.1.4",
     "@dbml/core": "^3.9.0",
+    "@types/dompurify": "^3.0.5",
     "@xyflow/react": "^12.3.6",
+    "dompurify": "^3.3.3",
     "marked": "^17.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
