@@ -26,9 +26,6 @@ jobs:
       - name: Build demo
         run: npm run build
         env:
-          # Use the bundled sample schema for the live demo
-          VITE_DBML_FILE: ./examples/schema.dbml
-          # Adjust if your repo is not named dbml-visualizer
           VITE_BASE_PATH: /dbml-visualizer/
 
       - name: Deploy to gh-pages
