@@ -2,6 +2,8 @@
 
 An interactive, browser-based entity-relationship diagram viewer for [DBML](https://dbml.dbdiagram.io/docs/) schemas. Upload a `.dbml` file, paste its contents, or embed it at build time — no backend required.
 
+<img width="1512" height="826" alt="image" src="https://github.com/user-attachments/assets/bd3434a2-b0b5-4d73-878c-51ca1e9e9284" />
+
 **[→ Live demo](https://rafalkaliszczuk.github.io/dbml-visualizer/)**
 
 ---
